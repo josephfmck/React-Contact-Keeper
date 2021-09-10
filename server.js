@@ -10,6 +10,12 @@ const app = express();
 app.get('/', (req, res) => res.json({ msg: 'Welcome to the contact keeper API...'}));
 
 
+//Define Routes 
+//? API ENDPOINTS
+app.use('/api/users', require('./routes/users'));
+app.use('/api/auth', require('./routes/auth'));
+app.use('/api/contacts', require('./routes/contacts'));
+
 //env var PORT production OR 5000 development
 const PORT = process.env.PORT || 5000;
 
