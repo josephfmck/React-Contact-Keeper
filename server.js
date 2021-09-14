@@ -2,9 +2,14 @@
 //* TERM: npm run server - to run backend server
 //import
 const express = require('express');
+//import DB connection
+const connectDB = require('./config/db');
 
 //init express
 const app = express();
+
+//connect to DB
+connectDB();
 
 //endpoint/route
 app.get('/', (req, res) => res.json({ msg: 'Welcome to the contact keeper API...'}));
