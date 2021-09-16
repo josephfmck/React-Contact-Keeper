@@ -2,6 +2,9 @@
 const express = require('express');
 const router = express.Router();
 
+//* import the user DB model to use in route
+const User = require('../models/User');
+
 
 //? route, description of route, and who can access
 // @route  POST api/users 
@@ -9,7 +12,8 @@ const router = express.Router();
 // @access Public
 //* Register and become user
 router.post('/', (req, res) => {
-    res.send('Register a user');
+    //? req.body needs express middleware in server.js
+    res.send(req.body);
 });
 
 module.exports = router;

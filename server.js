@@ -11,6 +11,9 @@ const app = express();
 //connect to DB
 connectDB();
 
+//*Init middleware to use res.send (req.body) in Routes
+app.use(express.json({ extended: false}));
+
 //endpoint/route
 app.get('/', (req, res) => res.json({ msg: 'Welcome to the contact keeper API...'}));
 
