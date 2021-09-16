@@ -12,6 +12,7 @@ const app = express();
 connectDB();
 
 //*Init middleware to use res.send (req.body) in Routes
+//!dont need extended: false since bodyparser deprecated
 app.use(express.json({ extended: false}));
 
 //endpoint/route
