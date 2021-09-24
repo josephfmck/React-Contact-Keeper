@@ -1,8 +1,10 @@
 //endpoint      http://localhost:5000/api/users
 const express = require("express");
 const router = express.Router();
+//hashing password
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+//global var secret
 const config = require("config");
 const { body, validationResult } = require("express-validator");
 
