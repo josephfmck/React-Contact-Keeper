@@ -10,20 +10,38 @@ const { body, validationResult } = require("express-validator");
 
 
 const User = require("../models/User");
+const { findById } = require('../models/User');
 
 
-
+//! happens 2nd
 //? route, description of route, and who can access
 // @route  GET api/auth 
 // @desc   Get logged in user
 // @access Private
 //* Get logged in user
 //* private is protected with middleware
-router.get('/', (req, res) => {
-    res.send('Get logged in user');
+//auth is middleware
+router.get('/', auth, async (req, res) => {
+
+    try {
+        //*find DB user by id, from req obj
+        //? req obj gets ID from auth middleware JWT
+        //* return user without password '-password'  
+        const user = await User.findById(req.user.id).select('-password');
+
+        //send user as res 
+        res.json(user);
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send('Server Error');
+    }
 });
 //?still "/" since grabbing and submitting from/to auth route
 
+
+
+
+//! happens 1st
 // @route  POST api/auth 
 // @desc   Auth user and get token
 // @access Private
