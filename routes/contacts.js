@@ -3,16 +3,33 @@
 
 const express = require('express');
 const router = express.Router();
+const { body, validationResult } = require("express-validator");
+const auth = require('../middleware/auth');
 
-//? route, description of route, and who can access
+//* import Both DB models to use in route
+const User = require("../models/User");
+const Contact = require("../models/Contact");
+
+
 // @route  GET api/contacts 
 // @desc   Get all users contacts (not all contacts in DB) (only specific users contacts)
 // @access Private
 //* Get all users contacts
-router.get('/', (req, res) => {
-    res.send('Get users contacts');
+router.get('/', auth, async (req, res) => {
+
+    console.log("req.user.id: ", req.user.id);
+
+    try {
+        //* User's contacts Arr sorted with newest first
+        const contacts = await Contact.find({ user: req.user.id }).sort({ date: -1 });
+        res.json(contacts);
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send('Server Error');
+    }
 });
-//?still "/" since grabbing and submitting from/to contacts route
+
+
 
 // @route  POST api/contacts 
 // @desc   Add new contact

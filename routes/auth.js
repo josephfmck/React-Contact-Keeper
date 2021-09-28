@@ -63,7 +63,7 @@ router.get('/', auth, async (req, res) => {
           const { email, password } = req.body;
       
           try {
-              //check user with email
+              //* Find DB user with email
               let user = await User.findOne({ email });
               //if user doesnt exist
               if(!user) {
